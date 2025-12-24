@@ -1,67 +1,52 @@
-# 🎵 Chinook Music Store: Data Warehouse & BI Project
+# 🎵 Proyek Data Warehouse & Business Intelligence: Chinook Music Store
 
-![Dashboard Preview](mining/output/dashboard_preview.png)
-## 📌 Project Overview
-This project implements a complete **Business Intelligence** solution for Chinook Music Store, focusing on the **Financial Perspective**. The goal is to analyze revenue trends, customer segments, and forecast future sales to assist executive decision-making.
+## 📌 Ringkasan Proyek
+Proyek ini merupakan implementasi solusi **Business Intelligence (BI)** lengkap untuk Chinook Music Store, dengan fokus utama pada **Perspektif Finansial**. Tujuan dari proyek ini adalah menganalisis tren pendapatan, melakukan segmentasi pelanggan, dan memprediksi penjualan di masa depan untuk mendukung pengambilan keputusan strategis tingkat eksekutif.
 
-**Key Objectives:**
-1.  Design a **Star Schema** Data Warehouse.
-2.  Perform **ETL** (Extract, Transform, Load) processes.
-3.  Implement **Data Mining** (Clustering & Regression) for predictive insights.
-4.  Develop an interactive **Dashboard** for KPI monitoring.
+**Tujuan Utama:**
+1.  Merancang **Data Warehouse** menggunakan skema bintang (*Star Schema*).
+2.  Melakukan proses **ETL** (*Extract, Transform, Load*) untuk integrasi data.
+3.  Mengimplementasikan **Data Mining** (Clustering & Regresi) untuk analisis prediktif.
+4.  Mengembangkan **Dashboard Interaktif** untuk pemantauan KPI.
+
+## 📊 1. Desain Data Warehouse
+Kami mentransformasi database transaksional (3NF) menjadi **Star Schema** yang dioptimalkan untuk query analitik (OLAP).
+
+- **Tabel Fakta:** `Fact_Sales` (Measure: Quantity, Amount).
+- **Tabel Dimensi:**
+  - `Dim_Pelanggan` (Lokasi, Email).
+  - `Dim_Waktu` (Tahun, Kuartal, Bulan, Hari).
+  - `Dim_Musik` (Track, Genre, Album, Artis).
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## 🧠 2. Implementasi Data Mining
 
-| Component | Tool Used | Description |
+### A. Segmentasi Pelanggan (Clustering)
+**Algoritma:** K-Means Clustering
+**Tujuan:** Mengelompokkan pelanggan berdasarkan perilaku belanja RFM (*Recency, Frequency, Monetary*) untuk mengidentifikasi pelanggan bernilai tinggi.
+
+| Cluster | Label | Insight & Rekomendasi |
 | :--- | :--- | :--- |
-| **Database** | MySQL / CSV | Source operational data. |
-| **ETL** | Pentaho (PDI) | Data integration & cleaning. |
-| **Data Mining** | Python (Pandas, Scikit-Learn) | Customer Segmentation (RFM) & Sales Forecasting. |
-| **Dashboard** | Google Looker Studio | Visualizing KPIs (Revenue, Growth, ARPC). |
+| **0** | Standar | Pelanggan reguler dengan pengeluaran rata-rata. Pertahankan layanan standar. |
+| **1** | Dormant | Pelanggan tidak aktif (>1.5 tahun), risiko *churn* tinggi. Perlu strategi *win-back*. |
+| **2** | **Premium** | **ARPC Tertinggi ($44.8)**, sangat aktif. Prioritas utama untuk program loyalitas. |
+
+### B. Peramalan Penjualan (Regression)
+**Algoritma:** Linear Regression
+**Tujuan:** Memprediksi Total Pendapatan Bulanan untuk 6 bulan ke depan.
+**Hasil Analisis:**
+- **Slope (Kemiringan):** `-0.01` (Menunjukkan Tren Stagnan/Sedikit Menurun).
+- **Kesimpulan:** Bisnis berada dalam fase jenuh. Diperlukan intervensi pemasaran segera atau ekspansi katalog produk baru.
 
 ---
 
-## 📊 1. Data Warehouse Design
-We transformed the transactional database (3NF) into a **Star Schema** optimized for OLAP queries.
+## 📈 3. Visualisasi Dashboard
+Executive Dashboard dirancang untuk memvisualisasikan indikator kinerja utama (KPI) berikut:
+- **Total Revenue:** Posisi keuangan perusahaan secara real-time.
+- **ARPC (Rata-rata Pendapatan per Pelanggan):** Tolok ukur nilai ekonomi pelanggan.
+- **Tren Penjualan:** Perbandingan data historis vs data prediksi (Forecasting).
 
-- **Fact Table:** `Fact_Sales` (Measures: Quantity, Amount, LineTotal).
-- **Dimension Tables:**
-  - `Dim_Customer` (Geography, Email).
-  - `Dim_Time` (Year, Quarter, Month, Day).
-  - `Dim_Music` (Track, Genre, Album, Artist).
-
----
-
-## 🧠 2. Data Mining Implementation
-
-### A. Customer Segmentation (Clustering)
-**Algorithm:** K-Means Clustering
-**Goal:** Group customers based on RFM (Recency, Frequency, Monetary) to identify high-value clients.
-
-| Cluster | Label | Insight |
-| :--- | :--- | :--- |
-| **0** | Standard | Regular customers with average spending. |
-| **1** | Dormant | Inactive customers (>1.5 years), high churn risk. |
-| **2** | **Premium** | **High ARPC ($44.8)**, recent activity. Priority for loyalty programs. |
-
-### B. Sales Forecasting (Regression)
-**Algorithm:** Linear Regression
-**Goal:** Predict Monthly Revenue for the next 6 months.
-**Result:**
-- **Slope:** `-0.01` (Indicates Stagnant/Slightly Declining Trend).
-- **Recommendation:** Requires immediate marketing intervention or catalog expansion.
-
-![Regression Result](mining/output/regression_result.png)
+🔗 **[Lihat Dashboard Langsung (Klik Disini)](https://lookerstudio.google.com/reporting/4123ca0f-b964-4568-9593-9d7634a63a9d)**
 
 ---
-
-## 📈 3. Dashboard Visualization
-The Executive Dashboard visualizes the following KPIs:
-- **Total Revenue:** Real-time financial position.
-- **ARPC (Avg Revenue Per Customer):** Monitoring customer value.
-- **Sales Trend:** Historical vs. Forecasted data.
-
-🔗 **[View Live Dashboard](https://lookerstudio.google.com/reporting/4123ca0f-b964-4568-9593-9d7634a63a9d)**
-
