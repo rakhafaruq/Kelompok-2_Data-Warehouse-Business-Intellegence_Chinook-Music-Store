@@ -63,17 +63,5 @@ The Executive Dashboard visualizes the following KPIs:
 - **ARPC (Avg Revenue Per Customer):** Monitoring customer value.
 - **Sales Trend:** Historical vs. Forecasted data.
 
-🔗 **[View Live Dashboard](LINK_DASHBOARD_LOOKER_KAMU_DISINI)**
+🔗 **[View Live Dashboard](https://lookerstudio.google.com/reporting/4123ca0f-b964-4568-9593-9d7634a63a9d)**
 
----
-
-## 🚀 How to Run
-
-### Prerequisites
-- Python 3.8+
-- Libraries: `pandas`, `numpy`, `matplotlib`, `scikit-learn`
-
-### Steps
-1. **Clone the repository**
-   ```bash
-   git clone [https://github.com/username/chinook-dwh-project.git](https://github.com/username/chinook-dwh-project.git)
